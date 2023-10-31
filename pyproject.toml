@@ -1,0 +1,11 @@
+[project]
+name = "ragephoto"
+version = "0.5.1"
+description = "libragephoto for Python"
+requires-python = ">=3.6"
+classifiers = [
+  "License :: OSI Approved :: BSD-2-Clause",
+]
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
