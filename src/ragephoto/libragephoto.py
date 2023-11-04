@@ -22,11 +22,20 @@ from pathlib import Path
 from platform import system
 
 if system() == "Windows":
-  _path = str(Path(__file__).parent.resolve() / "libragephoto.dll")
+  bundle_library_path = Path(__file__).parent.resolve() / "libragephoto.dll"
+  if bundle_library_path.is_file():
+    library_path = str(bundle_library_path)
 else:
-  _path = find_library("ragephoto")
-libragephoto = cdll.LoadLibrary(_path)
+  bundle_library_path = Path(__file__).parent.resolve() / "libragephoto.so"
+  if bundle_library_path.is_file():
+    library_path = str(bundle_library_path)
+  else:
+    library_path = find_library("ragephoto")
 
+if not library_path:
+  raise ImportError("libragephoto is required.")
+
+libragephoto = cdll.LoadLibrary(library_path)
 libragephoto.ragephoto_open.restype = c_void_p
 libragephoto.ragephoto_clear.argtypes = [c_void_p]
 libragephoto.ragephoto_close.argtypes = [c_void_p]

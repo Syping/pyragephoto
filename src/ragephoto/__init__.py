@@ -17,3 +17,9 @@
 ##############################################################################
 
 from .ragephoto import RagePhoto
+
+__all__ = [
+    "libragephoto", # libragephoto Loader Module
+    "ragephoto", # RagePhoto Module
+    "RagePhoto" # RagePhoto API
+]
