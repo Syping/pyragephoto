@@ -18,6 +18,8 @@
 
 from .libragephoto import *
 from enum import IntEnum
+from json import loads as parseJson
+from json import dumps as serializeJson
 
 class RagePhoto:
   class DefaultSize(IntEnum):
@@ -227,6 +229,15 @@ class RagePhoto:
       return _title
     else:
       return b""
+
+  def updateSign(self):
+    try:
+      _json = parseJson(self.json())
+    except JSONDecodeError:
+      return False
+    _json["sign"] = self.jpegSign()
+    self.setJson(serializeJson(_json, separators=(',', ':')))
+    return True
 
   def version(self):
     return libragephoto.ragephoto_version()
